@@ -39,8 +39,8 @@ function submitRequest(origin, budget, depDate, retDate) {
   $(".load-icon").show();
 
   $.ajax({
-    url: "http://localhost:3000/index",
-    // url: "https://gtfo-server.herokuapp.com/",
+    // url: "http://localhost:3000/index",
+    url: "https://gtfo-server.herokuapp.com/index",
     type: "POST",
     dataType: "json",
     data: {"origin": origin, "depart_time": depDate, "sale_total": budget}
@@ -158,8 +158,8 @@ function sendEmail(clickedElement, originalAirportCode, returnDate, apiResponseO
   $('form').on('submit', function(event) {
     event.preventDefault();
     $.ajax({
-      url: 'http://localhost:3000/users',
-      // url: 'https://gtfo-server.herokuapp.com/users',
+      // url: 'http://localhost:3000/users',
+      url: 'https://gtfo-server.herokuapp.com/users',
       type: 'POST',
       dataType: 'json',
       data: {formData: ($('form').serializeArray()), purchaseLinkForEmail: purchaseLink},
