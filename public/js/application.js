@@ -20,13 +20,7 @@ function eventListeners() {
     var depDate = $("#dep-date").val();
     var retDate = $("#ret-date").val();
 
-    //checks that all inputs fields have input
     checkForBlankInputs(origin, budget, depDate, retDate);
-
-    // uncomment below in order to make ajax post request
-    // leads to replaceSearchBox and populateResultsTemp
-    // call submitRequest from hasBlankInput if all inputs are present -- WORKING
-    // submitRequest(origin, budget, depDate, retDate);
   }); //end of on click
 }
 
@@ -34,13 +28,12 @@ function submitRequest(origin, budget, depDate, retDate) {
   console.log("in submitRequest");
   console.log(origin, budget, depDate, retDate);
   console.log("*************************");
-  // display loading icon
   $(".search-bar-wrapper").animate({ opacity:0 });
   $(".load-icon").show();
 
   $.ajax({
-    url: "http://localhost:3000/index",
-    // url: "https://gtfo-server.herokuapp.com/",
+    // url: "http://localhost:3000/index",
+    url: "https://gtfo-server.herokuapp.com/index",
     type: "POST",
     dataType: "json",
     data: {"origin": origin, "depart_time": depDate, "sale_total": budget}
@@ -48,15 +41,10 @@ function submitRequest(origin, budget, depDate, retDate) {
   .done(function(data) {
     console.log("success");
     console.log(data);
-    // replaceSearchBox();
     checkForNoResults(data, origin, retDate);
-    // error handling when array[0];
-    // now called from checkForNoResults fxn
-    // sortDataBySaleTotal(data, origin, retDate);
   })
   .fail(function() {
     console.log("error");
-    // in errorhandling.js
     displayApologyText();
     errorInvalidRequest();
   })
@@ -64,8 +52,6 @@ function submitRequest(origin, budget, depDate, retDate) {
     console.log("complete");
     $(".load-icon").hide();
   });
-    // $submitButton.attr('disabled', false).val('Submit');
-    // $searchField.prop('disabled', false);
 } //end of submitRequest
 
 function sortDataBySaleTotal(data, origin, retDate) {
@@ -130,7 +116,6 @@ function redirectToPurchase(context, origin, retDate) {
 // POP UP WINDOW FOR USER TO INSERT NAME AND EMAIL TO RECEIVE PUSH NOTIFICATION
 function trackDataViaEmail(context, origin, retDate) {
   $('#parent-container').on('click', '.email-button',  function(event){
-    // var purchaseLink = "https://www.google.com/flights/#search;f="+origin+";t="+context[index].destination_code+";d="+departDate+";r="+retDate+";sel=*";
     var clickedElement = event.target.id
     event.preventDefault();
     var originalAirportCode = origin
@@ -158,8 +143,8 @@ function sendEmail(clickedElement, originalAirportCode, returnDate, apiResponseO
   $('form').on('submit', function(event) {
     event.preventDefault();
     $.ajax({
-      url: 'http://localhost:3000/users',
-      // url: 'https://gtfo-server.herokuapp.com/users',
+      // url: 'http://localhost:3000/users',
+      url: "https://gtfo-server.herokuapp.com/users",
       type: 'POST',
       dataType: 'json',
       data: {formData: ($('form').serializeArray()), purchaseLinkForEmail: purchaseLink},
@@ -175,7 +160,6 @@ function sendEmail(clickedElement, originalAirportCode, returnDate, apiResponseO
 
 // USER WISH LIST TO ACCUMULATE DESIRED RESULTS FOR EMAIL NOTIFICATION
 function addToWishList(context, origin, retDate) {
-    // var accumulatedLinks = [];
     var originalAirportCode = origin
     var returnDate = retDate
     var apiResponseObjects = context
@@ -193,7 +177,6 @@ function addToWishList(context, origin, retDate) {
     event.preventDefault();
 
       $('#table-body').append("<tr><td>"+destination+"</td></tr><td style='display:none'>"+purchaseLink+"</td>");
-      // <td>"+carrier+"</td><td>"+saleTotal+"</td>
       accumulatedLinks.push(purchaseLink);
       console.log(accumulatedLinks)
   });
