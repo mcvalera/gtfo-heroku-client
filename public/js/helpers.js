@@ -1,4 +1,3 @@
-console.log('helpers.js');
 
 Handlebars.registerHelper("durationInHours", function(duration){
   var durationHours = Math.floor(duration / 60)

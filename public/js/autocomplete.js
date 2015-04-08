@@ -1,4 +1,3 @@
-console.log('autocomplete.js');
 
 function searchBarAutocomplete() {
   $(".search-params#origin").autocomplete({

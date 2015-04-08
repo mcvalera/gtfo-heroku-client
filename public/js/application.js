@@ -10,7 +10,6 @@ $(document).ready(function() {
 accumulatedLinks = []
 
 function eventListeners() {
-  console.log("in eventListeners");
 
   $(".button#send-request").on("click", function(event) {
     event.preventDefault();
@@ -25,9 +24,9 @@ function eventListeners() {
 }
 
 function submitRequest(origin, budget, depDate, retDate) {
-  console.log("in submitRequest");
-  console.log(origin, budget, depDate, retDate);
-  console.log("*************************");
+  // console.log("in submitRequest");
+  // console.log(origin, budget, depDate, retDate);
+  // console.log("*************************");
   $(".search-bar-wrapper").animate({ opacity:0 });
   $(".load-icon").show();
 
@@ -40,13 +39,12 @@ function submitRequest(origin, budget, depDate, retDate) {
   })
   .done(function(data) {
     console.log("success");
-    console.log(data);
+    // console.log(data);
     checkForNoResults(data, origin, retDate);
   })
   .fail(function() {
     console.log("error");
     displayApologyText();
-    errorInvalidRequest();
   })
   .always(function() {
     console.log("complete");
@@ -76,8 +74,8 @@ function sortDataBySaleTotal(data, origin, retDate) {
 }
 
 function populateResultsTemp(data_array, origin, retDate) {
-  console.log("in populateResultsTemp");
-  console.log(data_array, origin, retDate);
+  // console.log("in populateResultsTemp");
+  // console.log(data_array, origin, retDate);
 
   var source = $("#results-template").html();
   var template = Handlebars.compile(source);
@@ -96,18 +94,18 @@ function redirectToPurchase(context, origin, retDate) {
   $(".button#purchase").on("click", function(event) {
     event.preventDefault();
 
-    console.log('in redirectToPurchase');
-    console.log("*************************");
+    // console.log('in redirectToPurchase');
+    // console.log("*************************");
 
     // grab data attribute value of button that was clicked
     var indexString = $(this).attr("data");
     var index = parseInt(indexString);
     var departDate = context[index].depart_time.substring(0,10);
-    console.log(context);
+    // console.log(context);
 
     var purchaseLink = "https://www.google.com/flights/#search;f="+origin+";t="+context[index].destination_code+";d="+departDate+";r="+retDate+";sel=*";
 
-    console.log(purchaseLink);
+    // console.log(purchaseLink);
 
     window.open(purchaseLink);
   });
@@ -150,6 +148,7 @@ function sendEmail(clickedElement, originalAirportCode, returnDate, apiResponseO
       data: {formData: ($('form').serializeArray()), purchaseLinkForEmail: purchaseLink},
     })
     .done(function(response) {
+      console.log("success");
       $('#dialog').parent().remove();
     })
     .fail(function() {
@@ -178,7 +177,7 @@ function addToWishList(context, origin, retDate) {
 
       $('#table-body').append("<tr><td>"+destination+"</td></tr><td style='display:none'>"+purchaseLink+"</td>");
       accumulatedLinks.push(purchaseLink);
-      console.log(accumulatedLinks)
+      // console.log(accumulatedLinks)
   });
 }
 
@@ -192,7 +191,7 @@ function trigger() {
     $.each(accumulatedLinks, function(index, value){
       payload += "<p>"+value+"</p>"
     })
-    console.log(payload);
+    // console.log(payload);
       $.ajax({
         type: 'POST',
         url: 'https://mandrillapp.com/api/1.0/messages/send.json',
