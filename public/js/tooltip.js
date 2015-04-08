@@ -1,4 +1,3 @@
-console.log('tooltip.js');
 
 function infoOnHover() {
   $('.search-params#budget').tooltip({

@@ -1,12 +1,11 @@
-console.log('errorhandling.js');
 
 // called from eventListeners on click -- SHAKES SUCCESSFULLY
 function checkForBlankInputs(origin, budget, depDate, retDate) {
   if (origin === "" || budget === "" || depDate === "" || retDate === "") {
-    console.log('origin/budget/depDate/retDate is blank');
+    // console.log('origin/budget/depDate/retDate is blank');
     $('.search-params').addClass('animated shake');
   } else {
-    console.log('no errors, go to submitRequest')
+    // console.log('no errors, go to submitRequest')
     submitRequest(origin, budget, depDate, retDate);
   }
 }

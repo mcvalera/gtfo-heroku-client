@@ -1,4 +1,3 @@
-console.log('datedropdowns.js');
 
 function loadDatePicker() {
 
